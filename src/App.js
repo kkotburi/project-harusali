@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
-import "./reset.css";
+import React from "react";
+import Router from "./shared/Router";
 
-function App() {
-  return <div></div>;
-}
+const App = () => {
+  return <Router />;
+};
 
 export default App;
