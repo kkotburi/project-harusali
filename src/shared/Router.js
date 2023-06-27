@@ -1,11 +1,10 @@
-import React from "react";
+import React from 'react';
 // 1. react-router-dom을 사용하기 위해서 아래 API들을 import 합니다.
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../pages/Login";
-import SignIn from "../pages/SignIn";
-import Dummy from "../components/Dummy";
-import UserSetting from "../pages/UserSetting";
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from '../pages/Login';
+import Dummy from '../components/Dummy';
+import UserSetting from '../pages/UserSetting';
+import SignUp from '../pages/SignUp';
 
 // 2. Router 라는 함수를 만들고 아래와 같이 작성합니다.
 //BrowserRouter를 Router로 감싸는 이유는,
@@ -15,7 +14,6 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
-
 
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/usersetting" element={<UserSetting />}></Route>
