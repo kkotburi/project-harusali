@@ -1,8 +1,9 @@
-import logo from "./logo.svg";
+import React from "react";
+import Router from "./shared/Router";
 import "./reset.css";
 
-function App() {
-  return <div></div>;
-}
+const App = () => {
+  return <Router />;
+};
 
 export default App;
