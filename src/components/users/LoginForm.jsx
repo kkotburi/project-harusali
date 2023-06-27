@@ -4,6 +4,8 @@ import { BtnFill } from "../Btn.style";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -25,8 +27,8 @@ const LoginForm = () => {
         email,
         password
       );
+
       navigate("/home");
-      console.log(userCredential);
     } catch (error) {
       console.log(error);
     }

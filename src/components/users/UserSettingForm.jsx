@@ -5,7 +5,14 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db, storage } from "../../firebase";
-import { addDoc, collection, setDoc, getDocs, query } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const UserSettingForm = () => {
@@ -30,8 +37,9 @@ const UserSettingForm = () => {
       },
       userLike: { follow: [], following: [] },
     };
-    const allUserDataRef = collection(db, "user");
-    await addDoc(allUserDataRef, newUser);
+    // const allUserDataRef = collection(db, "user");
+    const userDocRef = doc(db, "users", user.uid);
+    await setDoc(userDocRef, newUser);
 
     navigate("/home");
   };
