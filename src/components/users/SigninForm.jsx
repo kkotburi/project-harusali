@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { styled } from "styled-components";
 import { auth } from "../../firebase";
+import { InputArea, BtnArea } from "./styled/users.styled";
+import { BtnFill } from "../Btn.style";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function SigninForm() {
   const [email, setEmail] = useState("");
@@ -27,6 +30,9 @@ function SigninForm() {
     if (name === "password") {
       setPassword(value);
     }
+    if (name === "pwTest") {
+      setPwTest(value);
+    }
   };
 
   const signUp = async (event) => {
@@ -38,57 +44,60 @@ function SigninForm() {
         email,
         password
       );
-      console.log("user with signUp", userCredential);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("error with signUp", errorCode, errorMessage);
-    }
-  };
-
-  const signIn = async (event) => {
-    event.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("user with signIn", userCredential);
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("error with signIn", errorCode, errorMessage);
     }
   };
 
   return (
-    <form>
-      <div>SignIn</div>
-      <input
-        type="email"
-        name="email"
-        value={email}
-        onChange={(event) => {
-          setEmail(event.target.value);
-        }}
-      />
-      <button>중복확인</button>
-      <input
+    <>
+      <div style={{ position: "relative" }}>
+        <InputArea
+          type="email"
+          name="email"
+          value={email}
+          placeholder="가입할 이메일을 입력하세요."
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        ></InputArea>
+        <BtnFillInline>중복확인</BtnFillInline>
+      </div>
+      <InputArea
         type="password"
         name="password"
         value={password}
         onChange={onChange}
+        placeholder="비밀번호를 입력하세요."
       />
-      <input type="password" name="pwTest" value={pwTest} onChange={onChange} />
-      <button type="submit" onClick={signUp}>
-        회원가입
-      </button>
-      <button type="submit" onClick={signIn}>
-        로그인
-      </button>
-    </form>
+      <InputArea
+        placeholder="비밀번호를 확인해 주세요."
+        type="password"
+        name="pwTest"
+        value={pwTest}
+        onChange={onChange}
+      />
+      <BtnArea>
+        <BtnFill
+          size="M"
+          type="submit"
+          onClick={(event) => {
+            signUp(event);
+          }}
+        >
+          회원가입
+        </BtnFill>
+      </BtnArea>
+    </>
   );
 }
 
 export default SigninForm;
+
+const BtnFillInline = styled(BtnFill)`
+  /* position: absolute; */
+  right: 1px;
+  padding: 5px;
+  bottom: 5px;
+`;
