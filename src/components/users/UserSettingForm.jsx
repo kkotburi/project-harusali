@@ -10,8 +10,10 @@ import {
   collection,
   doc,
   setDoc,
+  getDoc,
   getDocs,
   query,
+  where,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -21,26 +23,50 @@ const UserSettingForm = () => {
 
   const navigate = useNavigate();
 
+  const nickNameInspection = async () => {
+    let currentNickname = [];
+    const userRef = collection(db, "users");
+    const querySnapshot = await getDocs(userRef);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      currentNickname.push(doc.data().userPiece.nickname);
+    });
+    if (currentNickname.indexOf(nickName) >= 0) {
+      alert("이미 있는 닉네임입니다. 다시 작성하세요.");
+      setNickName("");
+      return;
+    }
+  };
+
   const userSetting = async (event) => {
     event.preventDefault();
-
     const user = auth.currentUser;
-    const imageRef = ref(storage, `${user.uid}/profileImg/${profileImg.name}`);
-    await uploadBytes(imageRef, profileImg);
-    const downloadUrl = await getDownloadURL(imageRef);
+
     const newUser = {
       uid: user.uid,
       userPiece: {
         id: user.email,
         nickname: nickName,
-        profileImg: downloadUrl,
+        profileImg: "",
       },
       userLike: { follow: [], following: [] },
     };
-    // const allUserDataRef = collection(db, "user");
-    const userDocRef = doc(db, "users", user.uid);
-    await setDoc(userDocRef, newUser);
 
+    if (profileImg !== null) {
+      const imageRef = ref(
+        storage,
+        `${user.uid}/profileImg/${profileImg.name}`
+      );
+      await uploadBytes(imageRef, profileImg);
+      const downloadUrl = await getDownloadURL(imageRef);
+      newUser.userPiece.profileImg = downloadUrl;
+
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, newUser);
+    } else {
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, newUser);
+    }
     navigate("/home");
   };
 
@@ -56,7 +82,7 @@ const UserSettingForm = () => {
             setNickName(event.target.value);
           }}
         ></InputArea>
-        <BtnFillInline>중복확인</BtnFillInline>
+        <BtnFillInline onClick={nickNameInspection}>중복확인</BtnFillInline>
       </div>
       <div>
         <InputArea
