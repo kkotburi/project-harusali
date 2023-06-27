@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { InputArea, BtnArea } from "./styled/users.styled";
 import { BtnFill } from "../Btn.style";
@@ -22,6 +23,7 @@ const LoginForm = () => {
   const signIn = async (event) => {
     event.preventDefault();
     try {
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -29,6 +31,7 @@ const LoginForm = () => {
       );
 
       navigate("/home");
+
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +39,7 @@ const LoginForm = () => {
 
   return (
     <>
+
       <InputArea
         type="text"
         placeholder="이메일입력해"
@@ -48,6 +52,7 @@ const LoginForm = () => {
         value={password}
         onChange={passwordChanger}
       ></InputArea>
+
       <BtnArea>
         <BtnFill size="M" width="140" onClick={signIn}>
           로그인
@@ -59,6 +64,7 @@ const LoginForm = () => {
           style={{ color: "#5763d4" }}
           onClick={() => {
             navigate("/signin");
+
           }}
         >
           회원가입
