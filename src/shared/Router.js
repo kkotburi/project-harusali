@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login";
 import SignIn from "../pages/SignIn";
 import Dummy from "../components/Dummy";
+import UserSetting from "../pages/UserSetting";
 
 // 2. Router 라는 함수를 만들고 아래와 같이 작성합니다.
 //BrowserRouter를 Router로 감싸는 이유는,
@@ -14,6 +15,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/usersetting" element={<UserSetting />}></Route>
         <Route path="/home" element={<Dummy />}></Route>
       </Routes>
     </BrowserRouter>

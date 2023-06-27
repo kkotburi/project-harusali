@@ -10,6 +10,7 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 
 function SigninForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pwTest, setPwTest] = useState("");
@@ -44,6 +45,7 @@ function SigninForm() {
         email,
         password
       );
+      navigate("/usersetting");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
