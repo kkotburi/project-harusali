@@ -7,6 +7,7 @@ import { auth, db, storage } from '../../firebase';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import InspectionCaption from './styled/InspectionCaption';
+import ImgPreview from './styled/ImgPreview';
 
 const UserSettingForm = () => {
   const [nickName, setNickName] = useState('');
@@ -14,8 +15,6 @@ const UserSettingForm = () => {
   const [currentNickNames, setCurrentNickNames] = useState([]);
   const [nickNamestate, setNickNameState] = useState('');
   const imageRef = useRef('');
-
-  // setCurrentNickNames(nameReciver());
 
   const navigate = useNavigate();
 
@@ -68,24 +67,38 @@ const UserSettingForm = () => {
     navigate('/home');
   };
 
+  const encodeFileTobase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setProfileImg(reader.result);
+        resolve();
+      };
+    });
+  };
+
   return (
     <>
       <ImgArea
+        profileImg={profileImg ? profileImg : ''}
         onClick={() => {
           imageRef.current?.click();
         }}
       >
+        {profileImg && <PreviewImg src={profileImg} color="red" alt="priview-img"></PreviewImg>}
         <InputArea
           type="file"
           name="email"
-          style={{ visibility: 'hidden', width: '110px', height: '110px', borderRadius: '100px' }}
+          style={{ visibility: 'hidden' }}
           placeholder="프로필 사진을 선택하세요."
           onChange={(event) => {
-            setProfileImg(event.target.files[0]);
+            encodeFileTobase64(event.target.files[0]);
           }}
           ref={imageRef}
         ></InputArea>
       </ImgArea>
+
       <div>
         <div></div>
         <InputArea
@@ -111,11 +124,22 @@ const UserSettingForm = () => {
 export default UserSettingForm;
 
 const ImgArea = styled.div`
-  background-color: rosybrown;
+  background-color: #9bcdfb;
   width: 110px;
   height: 110px;
   border-radius: 100px;
   margin: 10px 0;
+  overflow: hidden;
+  position: relative;
+
   &:hover {
+    background-color: #5763d4;
   }
+`;
+
+const PreviewImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
