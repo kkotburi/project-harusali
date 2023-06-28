@@ -11,7 +11,7 @@ import ImgPreview from './styled/ImgPreview';
 
 const UserSettingForm = () => {
   const [nickName, setNickName] = useState('');
-  const [profileImg, setProfileImg] = useState(null);
+  const [profileimg, setProfileImg] = useState(null);
   const [currentNickNames, setCurrentNickNames] = useState([]);
   const [nickNamestate, setNickNameState] = useState('');
   const imageRef = useRef('');
@@ -47,16 +47,16 @@ const UserSettingForm = () => {
       userPiece: {
         id: user.email,
         nickname: nickName,
-        profileImg: ''
+        profileimg: ''
       },
       userLike: { follow: [], following: [] }
     };
 
-    if (profileImg !== null) {
-      const imageRef = ref(storage, `${user.uid}/profileImg/${profileImg.name}`);
-      await uploadBytes(imageRef, profileImg);
+    if (profileimg !== null) {
+      const imageRef = ref(storage, `${user.uid}/profileimg/${profileimg.name}`);
+      await uploadBytes(imageRef, profileimg);
       const downloadUrl = await getDownloadURL(imageRef);
-      newUser.userPiece.profileImg = downloadUrl;
+      newUser.userPiece.profileimg = downloadUrl;
 
       const userDocRef = doc(db, 'users', user.uid);
       await setDoc(userDocRef, newUser);
@@ -81,12 +81,12 @@ const UserSettingForm = () => {
   return (
     <>
       <ImgArea
-        profileImg={profileImg ? profileImg : ''}
+        profileimg={profileimg ? profileimg : ''}
         onClick={() => {
           imageRef.current?.click();
         }}
       >
-        {profileImg && <PreviewImg src={profileImg} color="red" alt="priview-img"></PreviewImg>}
+        {profileimg && <PreviewImg src={profileimg} color="red" alt="priview-img"></PreviewImg>}
         <InputArea
           type="file"
           name="email"
