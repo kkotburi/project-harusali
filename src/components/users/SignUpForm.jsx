@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { InputArea, BtnArea } from './styled/users.styled';
+import { collection, getDocs } from 'firebase/firestore';
 import { BtnFill } from '../Btn.style';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +12,20 @@ function SignUpForm() {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [pwConfirm, setPwConfirm] = useState('');
+  const [currentId, setCurrentID] = useState([]);
+  const [signUpState, setSignUpState] = useState(false);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
-    });
+    const fetchData = async () => {
+      let currentId = [];
+      const userRef = collection(db, 'users');
+      const querySnapshot = await getDocs(userRef);
+      querySnapshot.forEach((doc) => {
+        currentId.push(doc.data().userPiece.id);
+      });
+      setCurrentID([...currentId]);
+    };
+    fetchData();
   }, []);
 
   const onChange = (event) => {
@@ -38,6 +48,14 @@ function SignUpForm() {
     const emailConfrim = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!emailConfrim.test(email)) {
       alert('이메일을 확인해 주세요!');
+      return;
+    } else if (currentId.indexOf(email) <= 0) {
+      alert('사용할 수 있는 이메일입니다.');
+      setSignUpState(true);
+    } else {
+      alert('이미 사용중인 이메일입니다.');
+      setEmail('');
+      setSignUpState(false);
     }
   };
 
@@ -56,8 +74,8 @@ function SignUpForm() {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, pw);
         alert('회원가입 되었습니다:)');
-        // Login page로 이동 필요 => 하단 navigate 추가
         navigate('/usersetting');
+        // Login page로 이동 필요
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -81,7 +99,7 @@ function SignUpForm() {
         ></InputArea>
         <BtnFillInline
           onClick={(event) => {
-            signDup(event);
+            // signDup(event);
           }}
         >
           중복확인
@@ -100,7 +118,13 @@ function SignUpForm() {
           size="M"
           type="submit"
           onClick={(event) => {
-            signUp(event);
+            if (signUpState === true) {
+              signUp(event);
+            } else {
+              signUp(event);
+
+              // alert('이메일 중복확인을 먼저 해주세요!');
+            }
           }}
         >
           회원가입
