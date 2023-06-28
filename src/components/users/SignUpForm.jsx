@@ -45,11 +45,14 @@ function SignUpForm() {
 
   const signDup = async (event) => {
     event.preventDefault();
+    console.log(currentId);
+    console.log(currentId.indexOf(email));
+    // console.log(currentId.indexOf(email) <= 0);
     const emailConfrim = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!emailConfrim.test(email)) {
       alert('이메일을 확인해 주세요!');
       return;
-    } else if (currentId.indexOf(email) <= 0) {
+    } else if (currentId.indexOf(email) < 0) {
       alert('사용할 수 있는 이메일입니다.');
       setSignUpState(true);
     } else {
@@ -95,11 +98,12 @@ function SignUpForm() {
           placeholder="가입할 이메일을 입력하세요."
           onChange={(event) => {
             setEmail(event.target.value);
+            setSignUpState(false);
           }}
         ></InputArea>
         <BtnFillInline
           onClick={(event) => {
-            // signDup(event);
+            signDup(event);
           }}
         >
           중복확인
@@ -121,9 +125,7 @@ function SignUpForm() {
             if (signUpState === true) {
               signUp(event);
             } else {
-              signUp(event);
-
-              // alert('이메일 중복확인을 먼저 해주세요!');
+              alert('이메일 중복확인을 먼저 해주세요!');
             }
           }}
         >
