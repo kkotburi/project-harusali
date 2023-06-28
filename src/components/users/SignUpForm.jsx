@@ -4,8 +4,10 @@ import { auth } from '../../firebase';
 import { InputArea, BtnArea } from './styled/users.styled';
 import { BtnFill } from '../Btn.style';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [pwConfirm, setPwConfirm] = useState('');
@@ -54,7 +56,8 @@ function SignUpForm() {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, pw);
         alert('회원가입 되었습니다:)');
-        // Login page로 이동 필요
+        // Login page로 이동 필요 => 하단 navigate 추가
+        navigate('/usersetting');
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
