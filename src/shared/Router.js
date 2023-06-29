@@ -1,9 +1,8 @@
-
 import React from 'react';
 // 1. react-router-dom을 사용하기 위해서 아래 API들을 import 합니다.
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
-import Dummy from '../components/Dummy';
+import MainPage from '../pages/MainPage';
 import UserSetting from '../pages/UserSetting';
 import SignUp from '../pages/SignUp';
 import Mypage from '../pages/Mypage';
@@ -19,7 +18,7 @@ const Router = () => {
 
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/usersetting" element={<UserSetting />}></Route>
-        <Route path="/home" element={<Dummy />}></Route>
+        <Route path="/home" element={<MainPage />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
       </Routes>
     </BrowserRouter>
@@ -27,4 +26,3 @@ const Router = () => {
 };
 
 export default Router;
-

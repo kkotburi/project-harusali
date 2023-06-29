@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { BtnFill } from '../Btn.style';
 
-const MypageBtn = () => {
+const BtnArea = () => {
   return (
-    <BtnArea>
+    <BtnSection>
       <BtnFill>글 작성</BtnFill>
       <BtnFill>내 정보 수정</BtnFill>
-    </BtnArea>
+    </BtnSection>
   );
 };
-export default MypageBtn;
+export default BtnArea;
 
-const BtnArea = styled.div`
+const BtnSection = styled.section`
   //   position: fixed;
 
   //   top: 230px;
