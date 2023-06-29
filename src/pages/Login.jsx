@@ -1,14 +1,8 @@
-import { styled } from "styled-components";
-import React, { useEffect } from "react";
-import {
-  LoginPageBg,
-  Container,
-  Title,
-  TitleCaption,
-} from "../components/users/styled/users.styled";
-import LoginForm from "../components/users/LoginForm";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import React, { useEffect } from 'react';
+import { LoginPageBg, Container, Title, TitleCaption } from '../components/users/styled/users.styled';
+import LoginForm from '../components/users/LoginForm';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Login = () => {
   useEffect(() => {

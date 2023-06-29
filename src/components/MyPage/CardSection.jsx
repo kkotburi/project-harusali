@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ContentImg, Contents, TextArea, Title, Text } from '../mainpage-mypage/main-mypage.styled';
 import CardDraw from '../mainpage-mypage/CardDraw';
 
 const CardSection = () => {

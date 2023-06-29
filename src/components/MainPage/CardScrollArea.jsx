@@ -1,5 +1,4 @@
 import React from 'react';
-import { ContentImg, Contents, TextArea, Title, Text } from '../mainpage-mypage/main-mypage.styled';
 import CardDraw from '../mainpage-mypage/CardDraw';
 import { styled } from 'styled-components';
 

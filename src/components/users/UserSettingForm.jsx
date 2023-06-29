@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { InputArea, BtnArea } from './styled/users.styled';
 import { BtnFill } from '../Btn.style';
 import { styled } from 'styled-components';
@@ -7,7 +7,6 @@ import { auth, db, storage } from '../../firebase';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import InspectionCaption from './styled/InspectionCaption';
-import ImgPreview from './styled/ImgPreview';
 
 const UserSettingForm = () => {
   const [nickName, setNickName] = useState('');
