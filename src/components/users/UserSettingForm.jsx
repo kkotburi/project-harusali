@@ -12,6 +12,7 @@ import ImgPreview from './styled/ImgPreview';
 const UserSettingForm = () => {
   const [nickName, setNickName] = useState('');
   const [profileimg, setProfileImg] = useState(null);
+  const [profileimgData, setprofileimgData] = useState(null);
   const [currentNickNames, setCurrentNickNames] = useState([]);
   const [nickNamestate, setNickNameState] = useState('');
   const imageRef = useRef('');
@@ -53,8 +54,8 @@ const UserSettingForm = () => {
     };
 
     if (profileimg !== null) {
-      const imageRef = ref(storage, `${user.uid}/profileimg/${profileimg.name}`);
-      await uploadBytes(imageRef, profileimg);
+      const imageRef = ref(storage, `${user.uid}/profileimg/${profileimgData.name}`);
+      await uploadBytes(imageRef, profileimgData);
       const downloadUrl = await getDownloadURL(imageRef);
       newUser.userPiece.profileimg = downloadUrl;
 
@@ -94,6 +95,7 @@ const UserSettingForm = () => {
           placeholder="프로필 사진을 선택하세요."
           onChange={(event) => {
             encodeFileTobase64(event.target.files[0]);
+            setprofileimgData(event.target.files[0]);
           }}
           ref={imageRef}
         ></InputArea>
