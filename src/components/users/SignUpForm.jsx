@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { auth, db } from '../../firebase';
 import { InputArea, BtnArea } from './styled/users.styled';
 import { collection, getDocs } from 'firebase/firestore';
-import { BtnFill } from '../Btn.style';
+import { BtnFill } from '../Btn.styled/Btn.style';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 

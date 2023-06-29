@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BtnFill } from '../Btn.style';
+import { BtnFill } from '../Btn.styled/Btn.style';
 
 const BtnArea = () => {
   return (

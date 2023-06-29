@@ -4,7 +4,7 @@ import MainPageHeader from '../components/MainPage/MainPage.Header';
 import { styled } from 'styled-components';
 import { Inner } from '../components/mainpage-mypage/main-mypage.styled';
 import { SectionContainer } from '../components/mainpage-mypage/main-mypage.styled';
-import { BtnFill } from '../components/Btn.style';
+import { BtnFill } from '../components/Btn.styled/Btn.style';
 
 const MainPage = () => {
   return (

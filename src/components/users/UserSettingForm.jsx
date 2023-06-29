@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { InputArea, BtnArea } from './styled/users.styled';
-import { BtnFill } from '../Btn.style';
+import { BtnFill } from '../Btn.styled/Btn.style';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, storage } from '../../firebase';
