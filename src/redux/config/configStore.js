@@ -1,10 +1,7 @@
-import { createStore } from "redux"; 
-import { combineReducers } from "redux";
-import feeds from "../modules/feed";
+import { createStore } from 'redux';
+import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({
-feeds
-});
+const rootReducer = combineReducers({});
 const store = createStore(rootReducer);
 
 export default store;

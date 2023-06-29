@@ -1,40 +1,24 @@
 import styled from 'styled-components';
-import MypageTop from '../components/main.mypage/MypageTop';
-import MypageBtn from '../components/main.mypage/MypageBtn';
-import MypageBottom from '../components/main.mypage/MypageBottom';
+import BtnSection from '../components/MyPage/BtnSection';
+import CardSection from '../components/MyPage/CardSection';
+import { Inner, SectionContainer } from '../components/mainpage-mypage/main-mypage.styled';
+import MyPageHeader from '../components/MyPage/MyPage.Header';
 
 const Mypage = () => {
   return (
-    <ViewPort>
-      <Inner>
-        <MypageTop />
-        <MypageBottomContainer>
-          <MypageBottom />
-          <MypageBtn />
-        </MypageBottomContainer>
-      </Inner>
-    </ViewPort>
+    <Inner>
+      <MyPageHeader></MyPageHeader>
+      <Container>
+        <CardSection />
+        <BtnSection />
+      </Container>
+    </Inner>
   );
 };
 
 export default Mypage;
 
-const ViewPort = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
-
-const Inner = styled.div`
-  width: 900px;
-  margin: 0px auto;
-  position: relative;
-`;
-
-const MypageBottomContainer = styled.div`
-  height: calc(100vh - 230px);
-  overflow: hidden;
-  padding-top: 230px;
+const Container = styled(SectionContainer)`
   background-color: gray;
-
   display: flex;
 `;
