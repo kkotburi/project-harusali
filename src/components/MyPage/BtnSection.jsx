@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { BtnFill } from '../Btn.styled/Btn.style';
+import ProfileEditModal from './ProfileEditModal';
 
 const BtnArea = () => {
   return (
     <BtnSection>
       <BtnFill>글 작성</BtnFill>
-      <BtnFill>내 정보 수정</BtnFill>
+      <ProfileEditModal />
     </BtnSection>
   );
 };

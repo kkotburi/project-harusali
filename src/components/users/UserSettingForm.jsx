@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { InputArea, BtnArea } from './styled/users.styled';
 import { BtnFill } from '../Btn.styled/Btn.style';
 import { styled } from 'styled-components';
@@ -7,8 +7,16 @@ import { auth, db, storage } from '../../firebase';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import InspectionCaption from './styled/InspectionCaption';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const UserSettingForm = () => {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log('user', user);
+    });
+  }, []);
+  // 사용자 정보 확인용
+
   const [nickName, setNickName] = useState('');
   const [profileimg, setProfileImg] = useState(null);
   const [profileimgData, setprofileimgData] = useState(null);
