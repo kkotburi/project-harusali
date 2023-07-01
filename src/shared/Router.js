@@ -6,6 +6,7 @@ import MainPage from '../pages/MainPage';
 import UserSetting from '../pages/UserSetting';
 import SignUp from '../pages/SignUp';
 import Mypage from '../pages/Mypage';
+import ProfileEdit from '../pages/ProfileEdit';
 
 // 2. Router 라는 함수를 만들고 아래와 같이 작성합니다.
 //BrowserRouter를 Router로 감싸는 이유는,
@@ -19,6 +20,9 @@ const Router = () => {
         <Route path="/usersetting" element={<UserSetting />}></Route>
         <Route path="/home" element={<MainPage />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
+        {/* 임시 프로필 수정 */}
+        <Route path="/:id" element={<ProfileEdit />} />
+        {/* 임시 프로필 수정 */}
       </Routes>
     </BrowserRouter>
   );

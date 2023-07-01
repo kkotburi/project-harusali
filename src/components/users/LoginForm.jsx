@@ -47,7 +47,6 @@ const LoginForm = () => {
     <>
       <InputArea type="text" placeholder="이메일입력해" value={email} onChange={emailChanger}></InputArea>
       <InputArea type="password" placeholder="비번입력해" value={password} onChange={passwordChanger}></InputArea>
-
       <BtnArea>
         <BtnFill size="M" width="140" onClick={signIn}>
           로그인

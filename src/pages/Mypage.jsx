@@ -17,9 +17,9 @@ const Mypage = () => {
 
   return (
     <Inner>
-      <MyPageHeader></MyPageHeader>
+      <MyPageHeader />
       <Container>
-        <CardSection />
+        {/* <CardSection /> */}
         <BtnSection />
       </Container>
     </Inner>

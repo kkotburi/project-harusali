@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginPageBg, Container, Title, TitleCaption } from '../components/users/styled/users.styled';
-import SignUpForm from '../components/users/SignUpForm';
+import { LoginPageBg, Container, Title, TitleCaption } from '../components/Users/styled/users.styled';
+import SignUpForm from '../components/Users/SignUpForm';
 
 const SignUp = () => {
   return (

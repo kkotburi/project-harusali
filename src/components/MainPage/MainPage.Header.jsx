@@ -9,7 +9,7 @@ import {
   ProfileCircle
 } from '../mainpage-mypage/main-mypage.styled';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MainPageHeader = () => {
   const navigate = useNavigate();
@@ -18,6 +18,11 @@ const MainPageHeader = () => {
 
   const profileImgLink = loginUser.userPiece.profileimg;
   const nickname = loginUser.userPiece.nickname;
+
+  // 임시 프로필 수정
+  const users = useSelector((state) => state.users);
+  // 임시 프로필 수정
+
   return (
     <Container>
       <Contents>여기에 글 숫자 써서 질수없겠죠? 어쩌구 써야합니다.</Contents>
@@ -31,11 +36,22 @@ const MainPageHeader = () => {
             onClick={() => {
               navigate('/mypage');
             }}
-          ></Profile>
+          />
         </ProfileCircle>
         <HelloTitle>{nickname}님 반가워요!</HelloTitle>
         <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
       </ProfileContent>
+      {/* 임시 프로필 수정 */}
+      <div>
+        {users.map((user) => {
+          return (
+            <p key={user.uid}>
+              <Link to={`/${user.uid}`}>{user.uid}</Link>
+            </p>
+          );
+        })}
+      </div>
+      {/* 임시 프로필 수정 */}
     </Container>
   );
 };
