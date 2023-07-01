@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { LoginPageBg, Container, Title, TitleCaption } from '../components/Users/styled/users.styled';
-import LoginForm from '../components/Users/LoginForm';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { LoginPageBg, Container, Title, TitleCaption } from '../components/users/styled/users.styled';
+import LoginForm from '../components/users/LoginForm';
+import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login = () => {

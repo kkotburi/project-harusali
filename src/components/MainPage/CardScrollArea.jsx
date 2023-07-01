@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import CardDraw from '../mainpage-mypage/CardDraw';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux';
+import DetailModal from '../../Modal.styled/DetailModal';
+import EditModal from '../../Modal.styled/EditModal';
 
 const CardScrollArea = () => {
+  const postData = useSelector((state) => state.Posts);
+  const [clickPost, setClickPost] = useState('');
+  const [modalDetailOpen, setModalDetailOpen] = useState(false);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+
+  const modalOpenHandler = (index) => {
+    console.log('클릭했써?');
+    setClickPost(postData[index]);
+    setModalDetailOpen(true);
+  };
+
   return (
-    <Container>
-      <InnerWrapper>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-        <CardDraw></CardDraw>
-      </InnerWrapper>
-    </Container>
+    <>
+      {modalDetailOpen && (
+        <DetailModal
+          post={clickPost}
+          setModalDetailOpen={setModalDetailOpen}
+          setModalEditOpen={setModalEditOpen}
+        ></DetailModal>
+      )}
+      {modalEditOpen && <EditModal post={clickPost} setModalEditOpen={setModalEditOpen}></EditModal>}
+      <Container>
+        <InnerWrapper>
+          {postData.map((post, index) => {
+            return (
+              <CardDraw
+                key={post.postId}
+                postdata={post}
+                setModalDetailOpen={setModalDetailOpen}
+                setClickPost={setClickPost}
+              ></CardDraw>
+            );
+          })}
+        </InnerWrapper>
+      </Container>
+    </>
   );
 };
 

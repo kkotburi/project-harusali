@@ -1,13 +1,22 @@
 import React from 'react';
 import { ContentImg, Contents, TextArea, Title, Text } from '../mainpage-mypage/main-mypage.styled';
 
-const CardDraw = () => {
+const CardDraw = ({ postdata, setModalDetailOpen, setClickPost }) => {
   return (
-    <Contents>
-      <ContentImg></ContentImg>
+    <Contents
+      onClick={() => {
+        setClickPost(postdata);
+        setModalDetailOpen(true);
+      }}
+    >
+      <ContentImg>
+        <img src={postdata.postInfo.postImg} />
+      </ContentImg>
       <TextArea>
-        <Title>닉네임 님의 작성날짜 TIL</Title>
-        <Text>김혜민님 css 도 공부하시고, git 도 공부하세요 다하세요도 공부하시고, git 도 공부하세요 다하세요</Text>
+        <Title>
+          {postdata.writerInfo.nickname} 님의 {postdata.postInfo.postDate} TIL
+        </Title>
+        <Text>{postdata.postInfo.text}</Text>
         {/* <LikeCommentArea></LikeCommentArea> */}
       </TextArea>
     </Contents>

@@ -29,7 +29,10 @@ export const Contents = styled.div`
 
 export const ContentImg = styled.div`
   height: 200px;
+  width: 286px;
+
   background-color: beige;
+  overflow: hidden;
 `;
 
 export const TextArea = styled.div`
