@@ -9,8 +9,11 @@ import {
   ProfileCircle
 } from '../mainpage-mypage/main-mypage.styled';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const MainPageHeader = () => {
+  const navigate = useNavigate();
+
   const loginUser = useSelector((state) => state.loginUserReducer);
 
   const profileImgLink = loginUser.userPiece.profileimg;
@@ -23,7 +26,12 @@ const MainPageHeader = () => {
       </LogoContent>
       <ProfileContent>
         <ProfileCircle>
-          <Profile src={profileImgLink}></Profile>
+          <Profile
+            src={profileImgLink}
+            onClick={() => {
+              navigate('/mypage');
+            }}
+          ></Profile>
         </ProfileCircle>
         <HelloTitle>{nickname}님 반가워요!</HelloTitle>
         <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
