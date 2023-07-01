@@ -9,7 +9,7 @@ import {
   ProfileCircle
 } from '../mainpage-mypage/main-mypage.styled';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MainPageHeader = () => {
   const navigate = useNavigate();
@@ -41,17 +41,6 @@ const MainPageHeader = () => {
         <HelloTitle>{nickname}님 반가워요!</HelloTitle>
         <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
       </ProfileContent>
-      {/* 임시 프로필 수정 */}
-      <div>
-        {users.map((user) => {
-          return (
-            <p key={user.uid}>
-              <Link to={`/${user.uid}`}>{user.uid}</Link>
-            </p>
-          );
-        })}
-      </div>
-      {/* 임시 프로필 수정 */}
     </Container>
   );
 };

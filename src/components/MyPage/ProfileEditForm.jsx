@@ -4,19 +4,17 @@ import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 function ProfileEditForm() {
+  const loginUser = useSelector((state) => state.loginUserReducer);
+  const profileImgLink = loginUser.userPiece.profileimg;
+  const nickname = loginUser.userPiece.nickname;
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
   // user 정보
-  const users = useSelector((state) => state.users);
-  const user = users.filter((user) => user.uid === id)[0];
-  const uid = user.uid;
-  const currnetProfileimg = user.userPiece.profileimg;
-  const currnetNickname = user.userPiece.nickname;
-
   const [newProfileimg, setProfilimg] = useState('');
-  const [newNickname, setNewNickname] = useState(currnetNickname);
+  const [newNickname, setNewNickname] = useState(nickname);
 
   return (
     <form
@@ -28,7 +26,7 @@ function ProfileEditForm() {
         dispatch({
           type: 'EDIT_PROFILE',
           payload: {
-            uid,
+            uid: loginUser.uid,
             userPiece: {
               nickname: newNickname,
               profileimg: newProfileimg
@@ -38,8 +36,7 @@ function ProfileEditForm() {
         event.preventDefault();
       }}
     >
-      <p>{user.uid}</p>
-      <StPreviewImg src={currnetProfileimg} />
+      <StPreviewImg src={profileImgLink} />
       <input
         type="text"
         name="newProfilimg"

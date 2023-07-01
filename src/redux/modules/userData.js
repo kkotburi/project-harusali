@@ -17,6 +17,16 @@ const loginUserReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:
       return { ...action.payload };
+    case 'EDIT_PROFILE':
+      return state.map((user) => {
+        return {
+          ...user,
+          userPiece: {
+            nickname: action.payload.userPiece.nickname,
+            profileimg: action.payload.userPiece.profileimg
+          }
+        };
+      });
     default:
       return state;
   }
