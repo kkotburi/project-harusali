@@ -5,6 +5,7 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
 import { storage, db } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { editPostInfo } from '../redux/modules/posts';
 
 const EditModal = ({ post, setModalEditOpen }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const EditModal = ({ post, setModalEditOpen }) => {
   const EditPost = async () => {
     if (newPostImg === '') {
       const editPost = {
+        postId,
         postInfo: {
           title,
           postImg: editPostImg,
@@ -35,9 +37,16 @@ const EditModal = ({ post, setModalEditOpen }) => {
 
       const PostDocRef = doc(db, 'posts', postId);
       await updateDoc(PostDocRef, editPost);
+      console.log('서버에 잘 올라갔어요.');
+
+      dispatch(editPostInfo(editPost));
+      console.log('리덕스에 잘 갔나요?.');
+
+      setModalEditOpen(false);
     } else {
       const desertRef = ref(storage, postImg);
       await deleteObject(desertRef);
+
       const imageRef = ref(storage, `${uid}/${postId}/postimg/${newPostImg.name}`);
       await uploadBytes(imageRef, newPostImg);
       const url = await getDownloadURL(imageRef);
@@ -45,13 +54,19 @@ const EditModal = ({ post, setModalEditOpen }) => {
       const editPost = {
         postId,
         postInfo: {
+          title,
           postImg: url,
-          text: editText
+          text: editText,
+          postDate
         }
       };
 
       const PostDocRef = doc(db, 'posts', postId);
       await updateDoc(PostDocRef, editPost);
+      console.log('서버에 잘 올라갔어요.');
+      dispatch(editPostInfo(editPost));
+      console.log('리덕스에 잘 갔나요?.');
+      setModalEditOpen(false);
     }
   };
 
@@ -84,7 +99,7 @@ const EditModal = ({ post, setModalEditOpen }) => {
           <ImgInput
             type="file"
             onChange={(event) => {
-              setEditText(event.target.files[0]);
+              setNewPostImg(event.target.files[0]);
               encodeFileTobase64(event.target.files[0]);
             }}
           ></ImgInput>
