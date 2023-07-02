@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ContentImg, Contents, TextArea, Title, Text } from '../mainpage-mypage/main-mypage.styled';
+import { useSelector } from 'react-redux';
 
 const CardDraw = ({ postdata, setModalDetailOpen, setClickPost }) => {
   return (
