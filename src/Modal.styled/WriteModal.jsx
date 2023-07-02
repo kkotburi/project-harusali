@@ -25,7 +25,7 @@ const WriteModal = ({ setModalOpen }) => {
   const [newPostId, setNewPostId] = useState(uuid());
   const [nowDate, setNowDate] = useState('');
   const [basicImg, setBasicImg] = useState(
-    'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-2.jpg?alt=media&token=704c0dbe-391c-4f14-b790-b6a8e7f72877'
+    'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-2.jpg?alt=media&token=06715b97-7fa7-4d3d-b1ff-7daa9e08299a'
   );
 
   useEffect(() => {

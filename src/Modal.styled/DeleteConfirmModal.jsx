@@ -14,11 +14,21 @@ const DeleteConfirmModal = ({ modalClose, postId, postImg, OuterModalClose }) =>
   const handleDeletePost = async () => {
     const postRef = doc(db, 'posts', postId);
     await deleteDoc(postRef);
-    const desertRef = ref(storage, postImg);
-    await deleteObject(desertRef);
-    dispatch(deletePost(postId));
-    modalClose(false);
-    OuterModalClose(false);
+
+    if (
+      postImg !==
+      'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-2.jpg?alt=media&token=06715b97-7fa7-4d3d-b1ff-7daa9e08299a'
+    ) {
+      const desertRef = ref(storage, postImg);
+      await deleteObject(desertRef);
+      dispatch(deletePost(postId));
+      modalClose(false);
+      OuterModalClose(false);
+    } else {
+      dispatch(deletePost(postId));
+      modalClose(false);
+      OuterModalClose(false);
+    }
   };
   return (
     <>
