@@ -123,6 +123,9 @@ const WriteModal = ({ setModalOpen }) => {
 
           <TextArea
             value={text}
+            style={{
+              wrap: 'hard'
+            }}
             onChange={(event) => {
               setText(event.target.value);
             }}

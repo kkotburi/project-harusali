@@ -13,7 +13,7 @@ const EditModal = ({ post, setModalEditOpen }) => {
   const dispatch = useDispatch();
 
   const { postId, postInfo, writerInfo } = post;
-  const { title, text, postImg, postDate } = postInfo;
+  const { title, text, postImg, postDate, postTime } = postInfo;
   const { uid } = writerInfo;
 
   const [editText, setEditText] = useState('');
@@ -33,7 +33,8 @@ const EditModal = ({ post, setModalEditOpen }) => {
           title,
           postImg: editPostImg,
           text: editText,
-          postDate
+          postDate,
+          postTime
         }
       };
 
@@ -57,7 +58,8 @@ const EditModal = ({ post, setModalEditOpen }) => {
           title,
           postImg: url,
           text: editText,
-          postDate
+          postDate,
+          postTime
         }
       };
 

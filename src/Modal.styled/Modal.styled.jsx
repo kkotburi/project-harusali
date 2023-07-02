@@ -51,7 +51,7 @@ export const ImgPreviewBox = styled.div`
 `;
 
 export const TextArea = styled.textarea`
-  white-space: pre;
+  /* white-space: pre; */
   border-radius: 10px;
   width: 500px;
   height: 300px;
