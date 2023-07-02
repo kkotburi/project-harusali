@@ -36,27 +36,40 @@ export const Title = styled.div`
 
 export const ImgPreviewBox = styled.div`
   background-color: royalblue;
+  overflow: hidden;
   width: 500px;
   height: 200px;
   margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
 `;
 
 export const TextArea = styled.textarea`
+  white-space: pre;
+  border-radius: 10px;
   width: 500px;
   height: 300px;
   resize: none;
-  padding: 10px;
-  background-color: orange;
+  padding: 20px;
   border: none;
   outline: none;
   box-sizing: border-box;
   margin-bottom: 20px;
+  line-height: 1.3;
+  font-size: 16px;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.3);
 `;
 
 export const ImgInput = styled.input`
   width: 500px;
   height: 50px;
-  background-color: gray;
+  visibility: hidden;
   margin-bottom: 30px;
 `;
 

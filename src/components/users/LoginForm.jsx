@@ -25,8 +25,10 @@ const LoginForm = () => {
       navigate('/home');
     } catch (error) {
       switch (error.code) {
-        case 'auth/user-not-found' || 'auth/wrong-password':
-          return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+        case 'auth/user-not-found':
+          return alert('가입하지 않은 이메일입니다..');
+        case 'auth/wrong-password':
+          return alert('비밀번호가 일치하지 않습니다');
         case 'auth/email-already-in-use':
           return alert('이미 사용 중인 이메일입니다.');
         case 'auth/weak-password':
@@ -45,8 +47,13 @@ const LoginForm = () => {
 
   return (
     <>
-      <InputArea type="text" placeholder="이메일입력해" value={email} onChange={emailChanger}></InputArea>
-      <InputArea type="password" placeholder="비번입력해" value={password} onChange={passwordChanger}></InputArea>
+      <InputArea type="text" placeholder="이메일을 입력하세요." value={email} onChange={emailChanger}></InputArea>
+      <InputArea
+        type="password"
+        placeholder="비밀번호를 입력하세요."
+        value={password}
+        onChange={passwordChanger}
+      ></InputArea>
       <BtnArea>
         <BtnFill size="M" width="140" onClick={signIn}>
           로그인

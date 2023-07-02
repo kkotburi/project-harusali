@@ -80,6 +80,13 @@ const DetailModal = ({ post, setModalDetailOpen, setModalEditOpen }) => {
 export default DetailModal;
 
 const TextView = styled(TextArea)`
+  white-space: pre;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  padding: 20px;
   overflow-y: scroll;
 `;
-const TextScroll = styled.p``;
+const TextScroll = styled.p`
+  line-height: 1.3;
+`;

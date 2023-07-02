@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ModalBg, ContentBox, Title, ImgPreviewBox, PreviewImg, TextArea, ImgInput } from './Modal.styled';
 import { BtnFill } from '../components/Btn.styled/Btn.style';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
@@ -8,6 +8,8 @@ import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { editPostInfo } from '../redux/modules/posts';
 
 const EditModal = ({ post, setModalEditOpen }) => {
+  const imageRef = useRef('');
+
   const dispatch = useDispatch();
 
   const { postId, postInfo, writerInfo } = post;
@@ -37,10 +39,8 @@ const EditModal = ({ post, setModalEditOpen }) => {
 
       const PostDocRef = doc(db, 'posts', postId);
       await updateDoc(PostDocRef, editPost);
-      console.log('서버에 잘 올라갔어요.');
 
       dispatch(editPostInfo(editPost));
-      console.log('리덕스에 잘 갔나요?.');
 
       setModalEditOpen(false);
     } else {
@@ -63,9 +63,7 @@ const EditModal = ({ post, setModalEditOpen }) => {
 
       const PostDocRef = doc(db, 'posts', postId);
       await updateDoc(PostDocRef, editPost);
-      console.log('서버에 잘 올라갔어요.');
       dispatch(editPostInfo(editPost));
-      console.log('리덕스에 잘 갔나요?.');
       setModalEditOpen(false);
     }
   };
@@ -86,7 +84,11 @@ const EditModal = ({ post, setModalEditOpen }) => {
       <ModalBg>
         <ContentBox>
           <Title>{title}</Title>
-          <ImgPreviewBox>
+          <ImgPreviewBox
+            onClick={() => {
+              imageRef.current?.click();
+            }}
+          >
             <PreviewImg src={editPostImg} color="red" alt="priview-img"></PreviewImg>
           </ImgPreviewBox>
 
@@ -102,6 +104,7 @@ const EditModal = ({ post, setModalEditOpen }) => {
               setNewPostImg(event.target.files[0]);
               encodeFileTobase64(event.target.files[0]);
             }}
+            ref={imageRef}
           ></ImgInput>
           <div>
             <BtnFill

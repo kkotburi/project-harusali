@@ -8,14 +8,6 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/aut
 import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log(auth);
-      console.log('user', user);
-    });
-  }, []);
-  // 사용자 정보 확인용
-
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
