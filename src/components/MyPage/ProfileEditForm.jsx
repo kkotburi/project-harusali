@@ -4,10 +4,11 @@ import { styled } from 'styled-components';
 import { BtnFill } from '../Btn.styled/Btn.style';
 import { InputArea, BtnArea } from '../Users/styled/users.styled';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const ProfileEditForm = () => {
-  // redux
+  // redux data
   const loginUser = useSelector((state) => state.loginUserReducer);
   const profileImgLink = loginUser.userPiece.profileimg;
   const nickname = loginUser.userPiece.nickname;
@@ -15,33 +16,31 @@ const ProfileEditForm = () => {
   const dispatch = useDispatch();
 
   const [newProfileimg, setNewProfileimg] = useState('');
+  const [profileimgData, setprofileimgData] = useState(null);
   const [newNickname, setNewNickname] = useState(nickname);
 
-  // firebase
+  // firebase update
+  const handleFileSelect = (event) => {
+    setprofileimgData(event.target.files[0]);
+  };
+
   const updateUser = async (event) => {
+    const imageRef = ref(storage, `${loginUser.uid}/profileimg/${profileimgData.name}`);
+    await uploadBytes(imageRef, profileimgData);
+
+    const downloadURL = await getDownloadURL(imageRef);
+    console.log('downloadURL', downloadURL);
+
     const userRef = doc(db, 'users', loginUser.uid);
     await updateDoc(userRef, {
       uid: loginUser.uid,
       userPiece: {
         id,
-        profileimg: newProfileimg,
+        profileimg: downloadURL,
         nickname: newNickname
       }
     });
   };
-
-  // firebase - EditModal.jsx;
-  // const updateUser = async () => {
-  //   const userRef = doc(db, 'users', String(user?.uid));
-  //   const editProfile = {
-  //     uid: user?.uid,
-  //     userPiece: {
-  //       nickname: newNickname,
-  //       profileimg: newProfileimg
-  //     }
-  //   };
-  //   await updateDoc(userRef, editProfile);
-  // };
 
   return (
     <form
@@ -57,6 +56,7 @@ const ProfileEditForm = () => {
             uid: loginUser.uid,
             userPiece: {
               nickname: newNickname,
+              // 사진 URL로 수정 필요
               profileimg: newProfileimg
             }
           }
@@ -67,14 +67,7 @@ const ProfileEditForm = () => {
       <ImgArea>
         <PreviewImg src={profileImgLink} />
       </ImgArea>
-      <input
-        type="text"
-        name="newProfilimg"
-        value={newProfileimg}
-        onChange={(event) => {
-          setNewProfileimg(event.target.value);
-        }}
-      />
+      <input type="file" name="newProfilimg" onChange={handleFileSelect} />
       <div>
         <InputArea
           type="text"
