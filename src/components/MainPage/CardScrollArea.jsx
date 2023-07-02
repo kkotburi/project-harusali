@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CardDraw from '../mainpage-mypage/CardDraw';
 import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -7,9 +7,15 @@ import EditModal from '../../Modal.styled/EditModal';
 
 const CardScrollArea = () => {
   const postData = useSelector((state) => state.Posts);
+  // const [reduxPostData, setReduxPostData] = useState([]);
   const [clickPost, setClickPost] = useState('');
   const [modalDetailOpen, setModalDetailOpen] = useState(false);
   const [modalEditOpen, setModalEditOpen] = useState(false);
+
+  useEffect(() => {
+    console.log('스테이트 잘 바뀜');
+    console.log(postData);
+  }, [postData]);
 
   const modalOpenHandler = (index) => {
     console.log('클릭했써?');

@@ -1,6 +1,7 @@
 const POST_FROM_DB = 'POST_FROM_DB';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const DELETE_POST = 'DELETE_POST';
+const EDIT_POST_INFO = 'EDIT_POST_INFO';
 
 const initialState = [
   {
@@ -31,6 +32,13 @@ export const deletePost = (postId) => {
   };
 };
 
+export const editPostInfo = (editPost) => {
+  return {
+    type: EDIT_POST_INFO,
+    payload: editPost
+  };
+};
+
 const Posts = (state = initialState, action) => {
   switch (action.type) {
     case POST_FROM_DB:
@@ -40,6 +48,10 @@ const Posts = (state = initialState, action) => {
     case DELETE_POST:
       return state.filter((post) => {
         return post.postId !== action.payload;
+      });
+    case EDIT_POST_INFO:
+      return state.map((post) => {
+        return post.postId === action.payload.postId ? { ...post, ...action.payload } : post;
       });
     default:
       return state;
