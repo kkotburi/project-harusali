@@ -44,6 +44,7 @@ const CardScrollArea = () => {
             );
           })}
         </InnerWrapper>
+        {<EmptyArea></EmptyArea>}
       </Container>
     </>
   );
@@ -55,17 +56,21 @@ const InnerWrapper = styled.div`
   margin: 0 auto;
   width: 900px;
   display: grid;
-  background-color: gray;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 100%));
+  gap: 21px;
 `;
 
 const Container = styled.div`
-  height: calc(100vh - 230px);
+  height: calc(100vh - 260px);
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
   flex-basis: 600px;
   flex-grow: 2;
+`;
+
+const EmptyArea = styled.div`
+  width: 20px;
+  height: 200px;
 `;

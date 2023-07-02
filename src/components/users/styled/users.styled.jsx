@@ -1,7 +1,7 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const LoginPageBg = styled.div`
-  background-color: #9bcdfb;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-1.jpg?alt=media&token=06bacf48-9c9e-4dec-9597-f638d7b58653);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -11,12 +11,9 @@ import { deletePost } from '../redux/modules/posts';
 const DeleteConfirmModal = ({ modalClose, postId, postImg, OuterModalClose }) => {
   const dispatch = useDispatch();
 
-  //삭제하는... 것....
   const handleDeletePost = async () => {
-    //db에서 글 없에는거
     const postRef = doc(db, 'posts', postId);
     await deleteDoc(postRef);
-    // 스토리지 에서 이미지없에는거
     const desertRef = ref(storage, postImg);
     await deleteObject(desertRef);
     dispatch(deletePost(postId));
@@ -27,16 +24,20 @@ const DeleteConfirmModal = ({ modalClose, postId, postImg, OuterModalClose }) =>
     <>
       <DeleteModalBg>
         <DeleteBox>
-          <ConfirmText>진짜삭제할껴?</ConfirmText>
+          <ConfirmText>삭제하시겠습니까?</ConfirmText>
           <div>
             <BtnFill
+              width="60"
               onClick={() => {
                 modalClose(false);
               }}
+              state="negative"
             >
-              취소할랭
+              취소
             </BtnFill>
-            <BtnFill onClick={handleDeletePost}>삭제할랭</BtnFill>
+            <BtnFill onClick={handleDeletePost} state="disable" width="60">
+              삭제
+            </BtnFill>
           </div>
         </DeleteBox>
       </DeleteModalBg>
@@ -63,7 +64,7 @@ const DeleteBox = styled(ContentBox)`
 `;
 
 const ConfirmText = styled.p`
-  font-size: 24px;
+  font-size: 20px;
   color: royalblue;
   font-weight: 700;
   margin-bottom: 13px;

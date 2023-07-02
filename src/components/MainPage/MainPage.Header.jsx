@@ -6,7 +6,8 @@ import {
   Profile,
   HelloTitle,
   EncouragementText,
-  ProfileCircle
+  ProfileCircle,
+  NickNameTitle
 } from '../mainpage-mypage/main-mypage.styled';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -38,19 +39,18 @@ const MainPageHeader = () => {
   const profileImgLink = loginUser.userPiece.profileimg;
   const nickname = loginUser.userPiece.nickname;
 
-  // 임시 프로필 수정
-  const users = useSelector((state) => state.users);
-  // 임시 프로필 수정
-
   return (
     <Container>
       <NumContents>
-        {getCurrentDate()}
-        {postNum}
-        {nickname}
+        <DateAreaBox>
+          <TextArea>오늘의 날짜</TextArea>
+          <DateArea>{getCurrentDate()}</DateArea>
+        </DateAreaBox>
+
+        <TextArea2>오늘 올라온 TIL {postNum}</TextArea2>
       </NumContents>
       <LogoContent>
-        <LogoImg>로고이미지</LogoImg>
+        <LogoImg></LogoImg>
       </LogoContent>
       <ProfileContent>
         <ProfileCircle
@@ -60,8 +60,11 @@ const MainPageHeader = () => {
         >
           <Profile src={profileImgLink}></Profile>
         </ProfileCircle>
-        <HelloTitle>{nickname}님 반가워요!</HelloTitle>
-        <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
+        <DateAreaBox>
+          <HelloTitle>{nickname}</HelloTitle>
+          <NickNameTitle>님 반가워요!</NickNameTitle>
+        </DateAreaBox>
+        <EncouragementText>오늘도 달려볼까요🔥</EncouragementText>
       </ProfileContent>
     </Container>
   );
@@ -75,7 +78,6 @@ const Container = styled(HeaderContainer)`
   align-items: center;
 `;
 const Contents = styled.div`
-  background-color: beige;
   height: 230px;
   flex-basis: 300px;
   flex-grow: 1;
@@ -99,4 +101,30 @@ const NumContents = styled(Contents)`
   align-items: flex-start;
   flex-direction: column;
   text-align: right;
+`;
+
+const DateAreaBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DateArea = styled.div`
+  font-size: 32px;
+  color: white;
+  font-weight: 700;
+`;
+
+const TextArea = styled.div`
+  font-size: 26px;
+  font-weight: 500;
+  color: white;
+  margin-right: 10px;
+`;
+
+const TextArea2 = styled.div`
+  font-size: 20px;
+  color: yellow;
+  font-weight: 500;
+  margin-top: 15px;
 `;

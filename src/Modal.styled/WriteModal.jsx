@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ModalBg, ContentBox } from './Modal.styled';
 import { BtnFill } from '../components/Btn.styled/Btn.style';
 import { styled } from 'styled-components';
@@ -12,6 +12,8 @@ import { Title, ImgPreviewBox, PreviewImg, TextArea, ImgInput } from './Modal.st
 import uuid from 'react-uuid';
 
 const WriteModal = ({ setModalOpen }) => {
+  const imageRef = useRef('');
+
   const user = useSelector((state) => state.loginUserReducer);
   const { uid, userPiece } = user;
   const { nickname, id, profileimg } = userPiece;
@@ -22,6 +24,9 @@ const WriteModal = ({ setModalOpen }) => {
   const [imgPreview, setImgPreview] = useState('');
   const [newPostId, setNewPostId] = useState(uuid());
   const [nowDate, setNowDate] = useState('');
+  const [basicImg, setBasicImg] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-2.jpg?alt=media&token=704c0dbe-391c-4f14-b790-b6a8e7f72877'
+  );
 
   useEffect(() => {
     setNowDate(getCurrentDate());
@@ -33,6 +38,18 @@ const WriteModal = ({ setModalOpen }) => {
     var month = (today.getMonth() + 1).toString().padStart(2, '0');
     var day = today.getDate().toString().padStart(2, '0');
     return year + month + day;
+  };
+
+  const getNowTime = () => {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = ('0' + (today.getMonth() + 1)).slice(-2);
+    let day = ('0' + today.getDate()).slice(-2);
+    let hours = ('0' + today.getHours()).slice(-2);
+    let minutes = ('0' + today.getMinutes()).slice(-2);
+    let seconds = ('0' + today.getSeconds()).slice(-2);
+
+    return year + month + day + hours + minutes + seconds;
   };
 
   const ModalCloseHandler = () => {
@@ -50,15 +67,15 @@ const WriteModal = ({ setModalOpen }) => {
     });
   };
 
-  const DEFAULT_IMAGE = '';
-
   const addPost = async () => {
-    if (postImg === '') {
-      const url = '';
+    let url;
+    if (postImg !== '') {
+      const imageRef = ref(storage, `${uid}/${newPostId}/postimg/${postImg.name}`);
+      await uploadBytes(imageRef, postImg);
+      url = await getDownloadURL(imageRef);
+    } else {
+      url = basicImg;
     }
-    const imageRef = ref(storage, `${uid}/${newPostId}/postimg/${postImg.name}`);
-    await uploadBytes(imageRef, postImg);
-    const url = await getDownloadURL(imageRef);
 
     const newPost = {
       postId: newPostId,
@@ -66,7 +83,8 @@ const WriteModal = ({ setModalOpen }) => {
         title: `${nickname}님의 ${nowDate}`,
         postImg: url,
         text,
-        postDate: nowDate
+        postDate: nowDate,
+        postTime: getNowTime()
       },
       writerInfo: {
         uid,
@@ -79,8 +97,7 @@ const WriteModal = ({ setModalOpen }) => {
     const PostDocRef = doc(db, 'posts', newPostId);
     await setDoc(PostDocRef, newPost);
     await dispatch(addNewPost(newPost));
-    alert('정상적으로 잘 포스팅 되었읍니다^^');
-    //리듀서한테 보낼꺼임!
+    alert('포스팅이 완료되었습니다!');
 
     ModalCloseHandler();
   };
@@ -92,8 +109,16 @@ const WriteModal = ({ setModalOpen }) => {
           <Title>
             {nickname}님의 {nowDate} TIL
           </Title>
-          <ImgPreviewBox>
-            {imgPreview && <PreviewImg src={imgPreview} color="red" alt="priview-img"></PreviewImg>}
+          <ImgPreviewBox
+            onClick={() => {
+              imageRef.current?.click();
+            }}
+          >
+            {imgPreview ? (
+              <PreviewImg src={imgPreview} color="red" alt="priview-img"></PreviewImg>
+            ) : (
+              '  클릭해서 사진을 올려주세요!'
+            )}
           </ImgPreviewBox>
 
           <TextArea
@@ -108,6 +133,7 @@ const WriteModal = ({ setModalOpen }) => {
               encodeFileTobase64(event.target.files[0]);
               setPostImg(event.target.files[0]);
             }}
+            ref={imageRef}
           ></ImgInput>
           <div>
             <BtnFill

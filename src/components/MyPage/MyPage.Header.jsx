@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   HeaderContainer,
@@ -7,20 +8,40 @@ import {
   EncouragementText,
   ProfileCircle
 } from '../mainpage-mypage/main-mypage.styled';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageHeader = () => {
+  const navigate = useNavigate();
   const loginUser = useSelector((state) => state.loginUserReducer);
+  const postData = useSelector((state) => state.Posts);
+
+  const [postNum, setPostNum] = useState(0);
+
+  useEffect(() => {
+    const myPost = postData.filter((post) => {
+      return post.writerInfo.uid === loginUser.uid;
+    });
+
+    setPostNum(myPost.length);
+  }, []);
+
   const profileImgLink = loginUser.userPiece.profileimg;
   const nickname = loginUser.userPiece.nickname;
 
   return (
     <HeaderContainer>
-      <LogoImg>로고이미지</LogoImg>
+      <LogoImg
+        onClick={() => {
+          navigate('/home');
+        }}
+      ></LogoImg>
       <ProfileCircle>
         <Profile src={profileImgLink} />
       </ProfileCircle>
-      <HelloTitle>{nickname}님 반가워요!</HelloTitle>
-      <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
+      <HelloTitle>
+        {nickname}님이 작성한 TIL은 {postNum}개 입니다!
+      </HelloTitle>
+      <EncouragementText>오늘도 달려볼까요🔥</EncouragementText>
     </HeaderContainer>
   );
 };

@@ -54,7 +54,8 @@ const UserSettingForm = () => {
       userPiece: {
         id: user.email,
         nickname: nickName,
-        profileimg: ''
+        profileimg:
+          'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/276f46d26122f515a4362993e0bfd141.jpg?alt=media&token=e856f6e2-f25a-4548-a41d-e57da36b8c0e'
       },
       userLike: { follow: [], following: [] }
     };
@@ -64,7 +65,8 @@ const UserSettingForm = () => {
       userPiece: {
         id: user.email,
         nickname: nickName,
-        profileimg: ''
+        profileimg:
+          'https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/276f46d26122f515a4362993e0bfd141.jpg?alt=media&token=e856f6e2-f25a-4548-a41d-e57da36b8c0e'
       },
       userLike: { follow: [], following: [] }
     };
@@ -108,11 +110,11 @@ const UserSettingForm = () => {
           imageRef.current?.click();
         }}
       >
-        {profileimg && <PreviewImg src={profileimg} color="red" alt="priview-img" />}
+        {profileimg ? <PreviewImg src={profileimg} color="red" alt="priview-img" /> : `클릭!`}
         <InputArea
           type="file"
           name="email"
-          style={{ visibility: 'hidden' }}
+          style={{ display: 'none' }}
           placeholder="프로필 사진을 선택하세요."
           onChange={(event) => {
             encodeFileTobase64(event.target.files[0]);
@@ -145,6 +147,7 @@ const UserSettingForm = () => {
 export default UserSettingForm;
 
 const ImgArea = styled.div`
+  text-align: center;
   background-color: #9bcdfb;
   width: 110px;
   height: 110px;
@@ -152,7 +155,12 @@ const ImgArea = styled.div`
   margin: 10px 0;
   overflow: hidden;
   position: relative;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
   &:hover {
     background-color: #5763d4;
   }

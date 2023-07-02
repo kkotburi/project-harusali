@@ -11,9 +11,6 @@ const CardSection = () => {
   const postData = useSelector((state) => state.Posts);
   const loginUser = useSelector((state) => state.loginUserReducer);
 
-  console.log(postData);
-  console.log(loginUser);
-
   const [myPost, setMyPost] = useState([]);
   useEffect(() => {
     const todayPost = postData.filter((post) => {
@@ -50,6 +47,7 @@ const CardSection = () => {
             );
           })}
         </InnerWrapper>
+        {<EmptyArea></EmptyArea>}
       </Container>
     </>
   );
@@ -57,6 +55,9 @@ const CardSection = () => {
 export default CardSection;
 
 const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   margin: 0 auto;
   width: 400px;
 `;
@@ -69,4 +70,9 @@ const Container = styled.div`
   }
   flex-basis: 600px;
   flex-grow: 2;
+`;
+
+const EmptyArea = styled.div`
+  width: 20px;
+  height: 200px;
 `;

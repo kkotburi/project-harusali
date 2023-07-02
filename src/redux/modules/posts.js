@@ -44,7 +44,7 @@ const Posts = (state = initialState, action) => {
     case POST_FROM_DB:
       return [...action.payload];
     case ADD_NEW_POST:
-      return [...state, action.payload];
+      return [...state, action.payload].sort((a, b) => b.postInfo.postTime - a.postInfo.postTime);
     case DELETE_POST:
       return state.filter((post) => {
         return post.postId !== action.payload;

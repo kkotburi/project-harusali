@@ -6,29 +6,36 @@ import MyPageHeader from '../components/MyPage/MyPage.Header';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
+import { PageBg } from './MainPage';
+import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      // console.log('user', user);
+      if (user) {
+      } else {
+        navigate('/');
+      }
     });
   }, []);
-  // 사용자 정보 확인용
-
   return (
-    <Inner>
-      <MyPageHeader />
-      <Container>
-        <CardSection />
-        <BtnSection />
-      </Container>
-    </Inner>
+    <PageBg>
+      <Inner>
+        <MyPageHeader />
+
+        <Container>
+          <CardSection />
+          <BtnSection />
+        </Container>
+      </Inner>
+    </PageBg>
   );
 };
 
 export default Mypage;
 
 const Container = styled(SectionContainer)`
-  background-color: gray;
   display: flex;
 `;

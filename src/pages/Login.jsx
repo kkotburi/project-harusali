@@ -5,13 +5,6 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login = () => {
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      // console.log('user', user);
-    });
-  }, []);
-  // 사용자 정보 확인용
-
   return (
     <LoginPageBg>
       <Container>

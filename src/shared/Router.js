@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 // 1. react-router-dom을 사용하기 위해서 아래 API들을 import 합니다.
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate, useNavigationType } from 'react-router-dom';
 import Login from '../pages/Login';
 import MainPage from '../pages/MainPage';
 import UserSetting from '../pages/UserSetting';
 import SignUp from '../pages/SignUp';
 import Mypage from '../pages/Mypage';
 import { allUserSetting } from '../redux/modules/Alluser';
-
+import { styled } from 'styled-components';
 import { onAuthStateChanged } from 'firebase/auth';
-
 import { getDocs, collection, doc, getDoc, query } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { LoginUser } from '../redux/modules/userData';
@@ -40,8 +39,9 @@ const Router = () => {
             postSnapshot.forEach((doc) => {
               initialPosts.push(doc.data());
             });
+            const sortPosts = initialPosts.sort((a, b) => b.postInfo.postTime - a.postInfo.postTime);
 
-            dispatch(postFromDB(initialPosts));
+            dispatch(postFromDB(sortPosts));
 
             let allUser = [];
             const AlluserRef = collection(db, 'users');
@@ -76,3 +76,9 @@ const Router = () => {
 };
 
 export default Router;
+
+export const BgImage = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/react-week2-5375f.appspot.com/o/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7-1.jpg?alt=media&token=5df1790d-da88-4d95-a0ad-7e246b29b341');
+`;
