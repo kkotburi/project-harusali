@@ -7,7 +7,15 @@ import { BtnFill } from '../Btn.styled/Btn.style';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-function SignUpForm() {
+const SignUpForm = () => {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(auth);
+      console.log('user', user);
+    });
+  }, []);
+  // 사용자 정보 확인용
+
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -45,9 +53,6 @@ function SignUpForm() {
 
   const signDup = async (event) => {
     event.preventDefault();
-    console.log(currentId);
-    console.log(currentId.indexOf(email));
-    // console.log(currentId.indexOf(email) <= 0);
     const emailConfrim = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!emailConfrim.test(email)) {
       alert('이메일을 확인해 주세요!');
@@ -64,7 +69,6 @@ function SignUpForm() {
 
   const signUp = async (event) => {
     event.preventDefault();
-    // 이메일 중복 확인 절차 필요
     if (email === '') {
       alert('이메일을 입력하고 중복 확인을 주세요!');
     } else if (pw === '' || pwConfirm === '') {
@@ -78,12 +82,9 @@ function SignUpForm() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, pw);
         alert('회원가입 되었습니다:)');
         navigate('/usersetting');
-        // Login page로 이동 필요
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(`error with signUp ${(errorCode, errorMessage)}`);
-        // alert("이미 등록된 이메일입니다.");
       }
     }
   };
@@ -134,7 +135,7 @@ function SignUpForm() {
       </BtnArea>
     </>
   );
-}
+};
 
 export default SignUpForm;
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginPageBg, Container, Title, TitleCaption } from '../components/users/styled/users.styled';
-import UserSettingForm from '../components/users/UserSettingForm';
+import { LoginPageBg, Container, Title, TitleCaption } from '../components/Users/styled/users.styled';
+import UserSettingForm from '../components/Users/UserSettingForm';
 
 const UserSetting = () => {
   return (

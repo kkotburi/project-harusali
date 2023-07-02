@@ -6,6 +6,7 @@ import MainPage from '../pages/MainPage';
 import UserSetting from '../pages/UserSetting';
 import SignUp from '../pages/SignUp';
 import Mypage from '../pages/Mypage';
+
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { getDocs, collection, doc, getDoc, query } from 'firebase/firestore';
@@ -13,6 +14,7 @@ import { auth, db } from '../firebase';
 import { LoginUser } from '../redux/modules/userData';
 import { useDispatch } from 'react-redux';
 import { postFromDB } from '../redux/modules/posts';
+
 
 // 2. Router 라는 함수를 만들고 아래와 같이 작성합니다.
 //BrowserRouter를 Router로 감싸는 이유는,
@@ -50,11 +52,13 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
-
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/usersetting" element={<UserSetting />}></Route>
         <Route path="/home" element={<MainPage />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
+        {/* 임시 프로필 수정 */}
+        <Route path="/:id" element={<ProfileEdit />} />
+        {/* 임시 프로필 수정 */}
       </Routes>
     </BrowserRouter>
   );

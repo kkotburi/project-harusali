@@ -7,6 +7,7 @@ import { auth } from '../../firebase';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,11 +22,8 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
       navigate('/home');
     } catch (error) {
-      console.log(error);
-
       switch (error.code) {
         case 'auth/user-not-found' || 'auth/wrong-password':
           return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
@@ -49,7 +47,6 @@ const LoginForm = () => {
     <>
       <InputArea type="text" placeholder="이메일입력해" value={email} onChange={emailChanger}></InputArea>
       <InputArea type="password" placeholder="비번입력해" value={password} onChange={passwordChanger}></InputArea>
-
       <BtnArea>
         <BtnFill size="M" width="140" onClick={signIn}>
           로그인

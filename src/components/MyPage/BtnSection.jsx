@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BtnFill } from '../Btn.styled/Btn.style';
+
 import WriteModal from '../../Modal.styled/WriteModal';
+
+import ProfileEditModal from './ProfileEditModal';
+
 
 const BtnArea = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -11,6 +15,7 @@ const BtnArea = () => {
   };
 
   return (
+
     <>
       {modalOpen && <WriteModal setModalOpen={setModalOpen}></WriteModal>}
       <BtnSection>
@@ -18,6 +23,7 @@ const BtnArea = () => {
         <BtnFill>내 정보 수정</BtnFill>
       </BtnSection>
     </>
+
   );
 };
 export default BtnArea;

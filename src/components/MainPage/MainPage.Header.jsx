@@ -37,6 +37,11 @@ const MainPageHeader = () => {
 
   const profileImgLink = loginUser.userPiece.profileimg;
   const nickname = loginUser.userPiece.nickname;
+
+  // 임시 프로필 수정
+  const users = useSelector((state) => state.users);
+  // 임시 프로필 수정
+
   return (
     <Container>
       <NumContents>
