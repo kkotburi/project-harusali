@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { LoginPageBg, Container, Title, TitleCaption } from '../components/Users/styled/users.styled';
-import LoginForm from '../components/Users/LoginForm';
+import { LoginPageBg, Container, Title, TitleCaption } from '../components/users/styled/users.styled';
+import LoginForm from '../components/users/LoginForm';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
+      // console.log('user', user);
     });
   }, []);
   // 사용자 정보 확인용

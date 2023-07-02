@@ -8,14 +8,15 @@ import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import InspectionCaption from './styled/InspectionCaption';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { LoginUser } from '../../redux/modules/userData';
+import { signInSetting } from '../../redux/modules/Alluser';
 
 const UserSettingForm = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
-    });
+    onAuthStateChanged(auth, (user) => {});
   }, []);
-  // 사용자 정보 확인용
 
   const [nickName, setNickName] = useState('');
   const [profileimg, setProfileImg] = useState(null);
@@ -39,7 +40,6 @@ const UserSettingForm = () => {
     const userRef = collection(db, 'users');
     const querySnapshot = await getDocs(userRef);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       currentNickname.push(doc.data().userPiece.nickname);
     });
 
@@ -59,6 +59,16 @@ const UserSettingForm = () => {
       userLike: { follow: [], following: [] }
     };
 
+    const editUser = {
+      uid: user.uid,
+      userPiece: {
+        id: user.email,
+        nickname: nickName,
+        profileimg: ''
+      },
+      userLike: { follow: [], following: [] }
+    };
+
     if (profileimg !== null) {
       const imageRef = ref(storage, `${user.uid}/profileimg/${profileimgData.name}`);
       await uploadBytes(imageRef, profileimgData);
@@ -67,10 +77,15 @@ const UserSettingForm = () => {
 
       const userDocRef = doc(db, 'users', user.uid);
       await setDoc(userDocRef, newUser);
+      dispatch(LoginUser(newUser));
+      dispatch(signInSetting(editUser));
     } else {
       const userDocRef = doc(db, 'users', user.uid);
       await setDoc(userDocRef, newUser);
+      dispatch(LoginUser(newUser));
+      dispatch(signInSetting(editUser));
     }
+
     navigate('/home');
   };
 

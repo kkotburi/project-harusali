@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { BtnFill } from '../Btn.styled/Btn.style';
-import { InputArea, BtnArea } from '../Users/styled/users.styled';
+import { InputArea, BtnArea } from '../users/styled/users.styled';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -79,9 +79,9 @@ const ProfileEditForm = () => {
         />
       </div>
       <BtnArea>
-        <BtnFill size="M" type="submit" onClick={updateUser}>
+        {/* <BtnFill size="M" type="submit" onClick={updateUser}>
           수정하기
-        </BtnFill>
+        </BtnFill> */}
       </BtnArea>
     </form>
   );

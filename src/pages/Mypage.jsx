@@ -10,7 +10,7 @@ import { auth } from '../firebase';
 const Mypage = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
+      // console.log('user', user);
     });
   }, []);
   // 사용자 정보 확인용
@@ -19,7 +19,7 @@ const Mypage = () => {
     <Inner>
       <MyPageHeader />
       <Container>
-        {/* <CardSection /> */}
+        <CardSection />
         <BtnSection />
       </Container>
     </Inner>

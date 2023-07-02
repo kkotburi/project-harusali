@@ -53,14 +53,12 @@ const MainPageHeader = () => {
         <LogoImg>로고이미지</LogoImg>
       </LogoContent>
       <ProfileContent>
-
         <ProfileCircle
           onClick={() => {
             navigate('/mypage');
           }}
         >
           <Profile src={profileImgLink}></Profile>
-
         </ProfileCircle>
         <HelloTitle>{nickname}님 반가워요!</HelloTitle>
         <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>

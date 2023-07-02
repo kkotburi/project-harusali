@@ -4,21 +4,19 @@ import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
 import DetailModal from '../../Modal.styled/DetailModal';
 import EditModal from '../../Modal.styled/EditModal';
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
+import { auth, db, storage } from '../../firebase';
 
 const CardScrollArea = () => {
   const postData = useSelector((state) => state.Posts);
-  // const [reduxPostData, setReduxPostData] = useState([]);
+
   const [clickPost, setClickPost] = useState('');
   const [modalDetailOpen, setModalDetailOpen] = useState(false);
   const [modalEditOpen, setModalEditOpen] = useState(false);
 
-  useEffect(() => {
-    console.log('스테이트 잘 바뀜');
-    console.log(postData);
-  }, [postData]);
+  useEffect(() => {}, [postData]);
 
   const modalOpenHandler = (index) => {
-    console.log('클릭했써?');
     setClickPost(postData[index]);
     setModalDetailOpen(true);
   };

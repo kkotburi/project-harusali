@@ -4,10 +4,15 @@ import CardDraw from '../mainpage-mypage/CardDraw';
 import { useSelector } from 'react-redux';
 import DetailModal from '../../Modal.styled/DetailModal';
 import EditModal from '../../Modal.styled/EditModal';
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
+import { auth, db, storage } from '../../firebase';
 
 const CardSection = () => {
   const postData = useSelector((state) => state.Posts);
   const loginUser = useSelector((state) => state.loginUserReducer);
+
+  console.log(postData);
+  console.log(loginUser);
 
   const [myPost, setMyPost] = useState([]);
   useEffect(() => {

@@ -2,12 +2,12 @@ import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 import loginUserReducer from '../modules/userData';
 import Posts from '../modules/posts';
-import users from '../modules/users';
+import AllUserReducer from '../modules/Alluser';
 
 const rootReducer = combineReducers({
   loginUserReducer,
   Posts,
-  users
+  AllUserReducer
 });
 const store = createStore(rootReducer);
 

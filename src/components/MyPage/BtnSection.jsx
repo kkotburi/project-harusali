@@ -6,24 +6,28 @@ import WriteModal from '../../Modal.styled/WriteModal';
 
 import ProfileEditModal from './ProfileEditModal';
 
-
 const BtnArea = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [writeModalOpen, setWriteModalOpen] = useState(false);
+  const [profileEditModalOpen, setProfileEditModalOpen] = useState(false);
 
   const WriteBtnHandler = (event) => {
-    setModalOpen(true);
+    setWriteModalOpen(true);
+  };
+
+  const ProfileEditBtnHandler = (event) => {
+    setProfileEditModalOpen(true);
   };
 
   return (
-
     <>
-      {modalOpen && <WriteModal setModalOpen={setModalOpen}></WriteModal>}
+      {writeModalOpen && <WriteModal setModalOpen={setWriteModalOpen}></WriteModal>}
+      {profileEditModalOpen && <ProfileEditModal setProfileEditModalOpen={setProfileEditModalOpen}></ProfileEditModal>}
       <BtnSection>
         <BtnFill onClick={WriteBtnHandler}>글 작성</BtnFill>
-        <BtnFill>내 정보 수정</BtnFill>
+        {/* {editmodal ? <ProfileEditModal /> : " "} */}
+        <BtnFill onClick={ProfileEditBtnHandler}> 내 정보 수정하기 </BtnFill>
       </BtnSection>
     </>
-
   );
 };
 export default BtnArea;

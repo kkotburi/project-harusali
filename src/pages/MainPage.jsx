@@ -10,7 +10,7 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { LoginUser } from '../redux/modules/userData';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postFromDB } from '../redux/modules/posts';
 import WriteModal from '../Modal.styled/WriteModal';
 
