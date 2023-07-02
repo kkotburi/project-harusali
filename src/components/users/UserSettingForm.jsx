@@ -20,7 +20,6 @@ const UserSettingForm = () => {
   const [nickName, setNickName] = useState('');
   const [profileimg, setProfileImg] = useState(null);
   const [profileimgData, setprofileimgData] = useState(null);
-  const [currentNickNames, setCurrentNickNames] = useState([]);
   const [nickNamestate, setNickNameState] = useState('');
   const imageRef = useRef('');
 
@@ -94,7 +93,7 @@ const UserSettingForm = () => {
           imageRef.current?.click();
         }}
       >
-        {profileimg && <PreviewImg src={profileimg} color="red" alt="priview-img"></PreviewImg>}
+        {profileimg && <PreviewImg src={profileimg} color="red" alt="priview-img" />}
         <InputArea
           type="file"
           name="email"
@@ -105,11 +104,9 @@ const UserSettingForm = () => {
             setprofileimgData(event.target.files[0]);
           }}
           ref={imageRef}
-        ></InputArea>
+        />
       </ImgArea>
-
       <div>
-        <div></div>
         <InputArea
           type="email"
           name="email"
@@ -118,9 +115,9 @@ const UserSettingForm = () => {
           onChange={(event) => {
             setNickName(event.target.value);
           }}
-        ></InputArea>
+        />
       </div>
-      <InspectionCaption nickNamestate={nickNamestate}></InspectionCaption>
+      <InspectionCaption nickNamestate={nickNamestate} />
       <BtnArea>
         <BtnFill size="M" type="submit" onClick={userSetting}>
           시작하기!

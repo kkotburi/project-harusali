@@ -22,7 +22,7 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      navigate('/mypage');
+      navigate('/home');
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found' || 'auth/wrong-password':

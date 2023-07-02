@@ -7,9 +7,10 @@ import { BtnFill } from '../Btn.styled/Btn.style';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-function SignUpForm() {
+const SignUpForm = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(auth);
       console.log('user', user);
     });
   }, []);
@@ -134,7 +135,7 @@ function SignUpForm() {
       </BtnArea>
     </>
   );
-}
+};
 
 export default SignUpForm;
 
