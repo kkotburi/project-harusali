@@ -26,7 +26,6 @@ const CardDraw = ({ postdata, setModalDetailOpen, setClickPost }) => {
           {userProfile[0]?.userPiece.nickname} 님의 {postdata.postInfo.postDate} TIL
         </Title>
         <Text>{postdata.postInfo.text}</Text>
-        {/* <LikeCommentArea></LikeCommentArea> */}
       </TextArea>
     </Contents>
   );
