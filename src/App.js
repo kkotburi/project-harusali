@@ -1,6 +1,5 @@
-import React from "react";
-import Router from "./shared/Router";
-import "./reset.css";
+import React from 'react';
+import Router from './shared/Router';
 
 const App = () => {
   return <Router />;
