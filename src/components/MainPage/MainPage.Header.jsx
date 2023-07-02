@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MainPageHeader = () => {
   const navigate = useNavigate();
+
   const loginUser = useSelector((state) => state.loginUserReducer);
   const postData = useSelector((state) => state.Posts);
 
@@ -47,12 +48,14 @@ const MainPageHeader = () => {
         <LogoImg>로고이미지</LogoImg>
       </LogoContent>
       <ProfileContent>
+
         <ProfileCircle
           onClick={() => {
             navigate('/mypage');
           }}
         >
           <Profile src={profileImgLink}></Profile>
+
         </ProfileCircle>
         <HelloTitle>{nickname}님 반가워요!</HelloTitle>
         <EncouragementText>오늘도 작성하셨네요 굿👍</EncouragementText>
