@@ -6,6 +6,14 @@ import { ModalBg, ContentBox, Title, ImgPreviewBox, PreviewImg, TextArea } from 
 import DeleteConfirmModal from './DeleteConfirmModal';
 
 const DetailModal = ({ post, setModalDetailOpen, setModalEditOpen }) => {
+  const allUserData = useSelector((state) => state.AllUserReducer);
+
+  const [nickname, setNickname] = useState('');
+
+  const userProfile = allUserData.filter((user) => {
+    return user.uid === post.writerInfo.uid;
+  });
+
   const user = useSelector((state) => state.loginUserReducer);
   const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState(false);
 
@@ -26,7 +34,9 @@ const DetailModal = ({ post, setModalDetailOpen, setModalEditOpen }) => {
 
       <ModalBg>
         <ContentBox>
-          <Title>{title}</Title>
+          <Title>
+            {userProfile[0]?.userPiece.nickname}님의 {post.postInfo.postDate}TIL
+          </Title>
           <ImgPreviewBox>
             <PreviewImg src={postImg} color="red" alt="priview-img"></PreviewImg>
           </ImgPreviewBox>
